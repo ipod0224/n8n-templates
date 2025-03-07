@@ -2,17 +2,6 @@
   "name": "Rank Tracker Postgres Template",
   "nodes": [
     {
-      "parameters": {},
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [
-        -340,
-        440
-      ],
-      "id": "92021b58-21a9-41e0-b852-a1dfcc6284f9",
-      "name": "When clicking ‘Test workflow’"
-    },
-    {
       "parameters": {
         "projectId": {
           "__rl": true,
@@ -40,6 +29,21 @@
           "name": "Google BigQuery account"
         }
       }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"domains\": [\n    {\n      \"domain\": \"domain\",\n      \"searchdata_url_impression\": \"searchdata_url_impression\",\n      \"searchdata_site_impression\": \"searchdata_site_impression\"\n    },\n\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -60,
+        440
+      ],
+      "id": "3f315b4a-6f55-4870-bc56-e032b4516fca",
+      "name": "Domains"
     },
     {
       "parameters": {
@@ -253,7 +257,7 @@
       "typeVersion": 2,
       "position": [
         100,
-        720
+        640
       ],
       "id": "511965b1-d6e7-4744-bdda-a36b2aee5d9e",
       "name": "get_date"
@@ -620,7 +624,7 @@
       "typeVersion": 3.4,
       "position": [
         100,
-        880
+        840
       ],
       "id": "fdcc21a2-4d74-40e3-960d-0bc531f13696",
       "name": "today_minus_28_d",
@@ -652,68 +656,94 @@
     },
     {
       "parameters": {
-        "content": "# Add Domains and Tables\n",
-        "height": 380,
-        "width": 1620
+        "content": "Add all your domains and BigQuery tables here",
+        "height": 220,
+        "width": 160
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -580,
-        280
+        -100,
+        340
       ],
       "id": "f27d387f-70d5-476f-8e40-b3d6c5288b0e",
       "name": "Sticky Note"
     },
     {
       "parameters": {
-        "content": "# Insert Rankings by Tracked Keywords",
-        "height": 560,
-        "width": 1620
+        "content": "### Automation Description\nThis automation serves two main purposes:\n1. It monitors keyword rankings for all keywords in your rank tracking table\n2. It displays keywords where you already have favorable Google rankings in a separate table\n\nThe ability clearly shows whether you rank in the top 3, top 10, or top 20 for specific keywords and URLs. Additionally, it displays rankings for both mobile and desktop devices.\n\n### Required Tables\nTo use this automation, you need to create the following tables:\n\n#### 1. Top Ranking Keywords\nThis table is used to identify keyword opportunities. It helps you quickly find keywords where you already rank in the top 3, 10, or 20 positions. This information is particularly valuable for creating content that matches these search queries.\n\n```sql\nCREATE TABLE IF NOT EXISTS public.top_ranking_keywords\n(\n    data_date date NOT NULL,\n    query text COLLATE pg_catalog.\"default\" NOT NULL,\n    url text COLLATE pg_catalog.\"default\" NOT NULL,\n    device text COLLATE pg_catalog.\"default\",\n    result_type text COLLATE pg_catalog.\"default\",\n    total_impressions integer,\n    total_clicks integer,\n    avg_position double precision,\n    ctr_percentage double precision,\n    position_bucket text COLLATE pg_catalog.\"default\",\n    domain text COLLATE pg_catalog.\"default\",\n    CONSTRAINT ranking_primary_key PRIMARY KEY (data_date, query, url)\n)\n```\n\n#### 2. Tracked Keywords\nAdd the keywords you want to monitor rankings for in this table.\n\n```sql\nCREATE TABLE IF NOT EXISTS public.tracked_keywords\n(\n    domain text COLLATE pg_catalog.\"default\" NOT NULL,\n    keyword text COLLATE pg_catalog.\"default\" NOT NULL,\n    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,\n    CONSTRAINT tracked_keywords_primary_key PRIMARY KEY (domain, keyword)\n)\n```\n\n#### 3. Rank Tracking by Keywords\nThis table exclusively tracks the rankings of keywords listed in the tracked_keywords table.\n\n```sql\nCREATE TABLE IF NOT EXISTS public.rank_tracking_by_keywords\n(\n    data_date date NOT NULL,\n    url text COLLATE pg_catalog.\"default\" NOT NULL,\n    device text COLLATE pg_catalog.\"default\",\n    keyword text COLLATE pg_catalog.\"default\" NOT NULL,\n    clicks integer,\n    impressions integer,\n    \"position\" double precision,\n    ctr double precision,\n    domain text COLLATE pg_catalog.\"default\",\n    CONSTRAINT tracked_keyword_primary_key PRIMARY KEY (data_date, url, keyword)\n)\n```",
+        "height": 1300,
+        "width": 1300
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -580,
-        680
+        1100,
+        -480
       ],
-      "id": "a04ad766-062e-432e-a5f4-2cbd74d4cbc3",
-      "name": "Sticky Note2"
+      "id": "f5cc8957-a906-4a49-b3cb-7dcee72d2503",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -340,
+        440
+      ],
+      "id": "92021b58-21a9-41e0-b852-a1dfcc6284f9",
+      "name": "Start"
     },
     {
       "parameters": {
-        "content": "# Keyword Opportunity Tracking",
-        "height": 560,
-        "width": 1320
+        "content": "Adjust this for the first run if needed",
+        "height": 220,
+        "width": 180
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1060,
-        680
+        60,
+        780
       ],
-      "id": "28da0d11-1338-40f2-bebd-85b84ddec4ec",
-      "name": "Sticky Note3"
+      "id": "f1b923ef-1f4e-4356-8bbb-8e5036ba36d0",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "Adjust the query if needed",
+        "height": 260,
+        "width": 180
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2020,
+        840
+      ],
+      "id": "a770b4bf-d8a0-483f-8a89-3e7cce337218",
+      "name": "Sticky Note2"
     }
   ],
   "pinData": {},
   "connections": {
-    "When clicking ‘Test workflow’": {
+    "Get Ranking Keywords by URL": {
       "main": [
         [
           {
-            "node": "Split Out",
+            "node": "insert_keywords_ranking_by_tracked_keywords",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Get Ranking Keywords by URL": {
+    "Domains": {
       "main": [
         [
           {
-            "node": "insert_keywords_ranking_by_tracked_keywords",
+            "node": "Split Out",
             "type": "main",
             "index": 0
           }
@@ -943,13 +973,24 @@
           }
         ]
       ]
+    },
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Domains",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "130cf965-ff3e-4351-82bf-20aaf4b7d5d5",
+  "versionId": "ab27a29c-99cc-470f-a268-f032cba88cb0",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
