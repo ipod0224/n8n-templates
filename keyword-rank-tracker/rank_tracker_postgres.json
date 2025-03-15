@@ -22,13 +22,7 @@
       "id": "889ee8e9-7476-4a87-b791-4718c05664f4",
       "name": "Get Ranking Keywords by URL",
       "alwaysOutputData": false,
-      "executeOnce": true,
-      "credentials": {
-        "googleBigQueryOAuth2Api": {
-          "id": "9x33JaSI9N1JQ0NB",
-          "name": "Google BigQuery account"
-        }
-      }
+      "executeOnce": true
     },
     {
       "parameters": {
@@ -174,13 +168,7 @@
       "id": "0bf4672c-43d7-46d9-8ed5-7632f68823ee",
       "name": "Get Keyword Opportunities",
       "alwaysOutputData": false,
-      "executeOnce": true,
-      "credentials": {
-        "googleBigQueryOAuth2Api": {
-          "id": "9x33JaSI9N1JQ0NB",
-          "name": "Google BigQuery account"
-        }
-      }
+      "executeOnce": true
     },
     {
       "parameters": {
@@ -196,13 +184,7 @@
       ],
       "id": "715b6742-1bfa-4149-b9de-b87f279b1c9f",
       "name": "get_date_of_last_run",
-      "alwaysOutputData": true,
-      "credentials": {
-        "postgres": {
-          "id": "Vt4VcaE8xkF2qnkU",
-          "name": "Postgres account"
-        }
-      }
+      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -217,13 +199,7 @@
         960
       ],
       "id": "4a3dad81-fef3-42a3-88b6-217219981f24",
-      "name": "get_keywords_to_track",
-      "credentials": {
-        "postgres": {
-          "id": "Vt4VcaE8xkF2qnkU",
-          "name": "Postgres account"
-        }
-      }
+      "name": "get_keywords_to_track"
     },
     {
       "parameters": {},
@@ -276,13 +252,7 @@
       ],
       "id": "4dd56d48-af92-40f1-8797-ed7a78b39cb7",
       "name": "get_date_of_last_run_1",
-      "alwaysOutputData": true,
-      "credentials": {
-        "postgres": {
-          "id": "Vt4VcaE8xkF2qnkU",
-          "name": "Postgres account"
-        }
-      }
+      "alwaysOutputData": true
     },
     {
       "parameters": {},
@@ -440,13 +410,7 @@
         1000
       ],
       "id": "dccf25e5-5971-424e-843d-e95b5816bde8",
-      "name": "insert_keywords_ranking_by_tracked_keywords",
-      "credentials": {
-        "postgres": {
-          "id": "Vt4VcaE8xkF2qnkU",
-          "name": "Postgres account"
-        }
-      }
+      "name": "insert_keywords_ranking_by_tracked_keywords"
     },
     {
       "parameters": {
@@ -598,13 +562,7 @@
         1000
       ],
       "id": "1a2001af-41c7-4a2c-af00-6a0fefbb823d",
-      "name": "insert_top_keywords",
-      "credentials": {
-        "postgres": {
-          "id": "Vt4VcaE8xkF2qnkU",
-          "name": "Postgres account"
-        }
-      }
+      "name": "insert_top_keywords"
     },
     {
       "parameters": {
@@ -672,14 +630,14 @@
     {
       "parameters": {
         "content": "### Automation Description\nThis automation serves two main purposes:\n1. It monitors keyword rankings for all keywords in your rank tracking table\n2. It displays keywords where you already have favorable Google rankings in a separate table\n\nThe ability clearly shows whether you rank in the top 3, top 10, or top 20 for specific keywords and URLs. Additionally, it displays rankings for both mobile and desktop devices.\n\n### Required Tables\nTo use this automation, you need to create the following tables:\n\n#### 1. Top Ranking Keywords\nThis table is used to identify keyword opportunities. It helps you quickly find keywords where you already rank in the top 3, 10, or 20 positions. This information is particularly valuable for creating content that matches these search queries.\n\n```sql\nCREATE TABLE IF NOT EXISTS public.top_ranking_keywords\n(\n    data_date date NOT NULL,\n    query text COLLATE pg_catalog.\"default\" NOT NULL,\n    url text COLLATE pg_catalog.\"default\" NOT NULL,\n    device text COLLATE pg_catalog.\"default\",\n    result_type text COLLATE pg_catalog.\"default\",\n    total_impressions integer,\n    total_clicks integer,\n    avg_position double precision,\n    ctr_percentage double precision,\n    position_bucket text COLLATE pg_catalog.\"default\",\n    domain text COLLATE pg_catalog.\"default\",\n    CONSTRAINT ranking_primary_key PRIMARY KEY (data_date, query, url)\n)\n```\n\n#### 2. Tracked Keywords\nAdd the keywords you want to monitor rankings for in this table.\n\n```sql\nCREATE TABLE IF NOT EXISTS public.tracked_keywords\n(\n    domain text COLLATE pg_catalog.\"default\" NOT NULL,\n    keyword text COLLATE pg_catalog.\"default\" NOT NULL,\n    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,\n    CONSTRAINT tracked_keywords_primary_key PRIMARY KEY (domain, keyword)\n)\n```\n\n#### 3. Rank Tracking by Keywords\nThis table exclusively tracks the rankings of keywords listed in the tracked_keywords table.\n\n```sql\nCREATE TABLE IF NOT EXISTS public.rank_tracking_by_keywords\n(\n    data_date date NOT NULL,\n    url text COLLATE pg_catalog.\"default\" NOT NULL,\n    device text COLLATE pg_catalog.\"default\",\n    keyword text COLLATE pg_catalog.\"default\" NOT NULL,\n    clicks integer,\n    impressions integer,\n    \"position\" double precision,\n    ctr double precision,\n    domain text COLLATE pg_catalog.\"default\",\n    CONSTRAINT tracked_keyword_primary_key PRIMARY KEY (data_date, url, keyword)\n)\n```",
-        "height": 1300,
-        "width": 1300
+        "height": 1200,
+        "width": 3040
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1100,
-        -480
+        -620,
+        -900
       ],
       "id": "f5cc8957-a906-4a49-b3cb-7dcee72d2503",
       "name": "Sticky Note4"
@@ -724,6 +682,53 @@
       ],
       "id": "a770b4bf-d8a0-483f-8a89-3e7cce337218",
       "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "# Get Tracked Keywords Ranking",
+        "height": 620,
+        "width": 1640,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -620,
+        600
+      ],
+      "id": "5871284a-0aa7-4d9d-a5cf-c579871ee29c",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "# Start here",
+        "height": 260,
+        "width": 1640
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -620,
+        320
+      ],
+      "id": "1d8f8fd3-663a-4644-885c-30377ccb12fb",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "# Get Keyword Opportunities",
+        "height": 620,
+        "width": 1640,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        600
+      ],
+      "id": "37a05e6f-e591-4dde-a772-1046a5ffde91",
+      "name": "Sticky Note6"
     }
   ],
   "pinData": {},
@@ -990,7 +995,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "ab27a29c-99cc-470f-a268-f032cba88cb0",
+  "versionId": "ea6dd1b7-3fde-41b5-aec0-ca8eff050b93",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
@@ -1002,6 +1007,12 @@
       "updatedAt": "2025-03-02T12:05:53.836Z",
       "id": "utwtHTzeqUdktrxJ",
       "name": "SEO"
+    },
+    {
+      "createdAt": "2025-03-08T08:04:57.610Z",
+      "updatedAt": "2025-03-08T08:04:57.610Z",
+      "id": "TMDokL1KXbN5A2PH",
+      "name": "Templates"
     }
   ]
 }

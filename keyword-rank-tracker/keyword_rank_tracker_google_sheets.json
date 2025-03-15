@@ -35,13 +35,7 @@
         280
       ],
       "id": "86f7ea65-9942-4886-9516-21553ac7a460",
-      "name": "Get Tracked Keywords",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "oYP1Bc15GY7emvD3",
-          "name": "Google Sheets account"
-        }
-      }
+      "name": "Get Tracked Keywords"
     },
     {
       "parameters": {
@@ -76,13 +70,7 @@
       ],
       "id": "f9245333-7f36-42f8-85c4-502ab8c15b92",
       "name": "Get Ranking Keywords by URL",
-      "alwaysOutputData": true,
-      "credentials": {
-        "googleBigQueryOAuth2Api": {
-          "id": "9x33JaSI9N1JQ0NB",
-          "name": "Google BigQuery account"
-        }
-      }
+      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -201,13 +189,7 @@
         260
       ],
       "id": "47bd9243-26d3-4ba6-ae65-f3cbc86e7020",
-      "name": "Insert URL Rankings",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "oYP1Bc15GY7emvD3",
-          "name": "Google Sheets account"
-        }
-      }
+      "name": "Insert URL Rankings"
     },
     {
       "parameters": {
@@ -286,13 +268,7 @@
       ],
       "id": "ef8f0f8e-eef5-4528-a875-1c9d9af7682a",
       "name": "Google Sheets",
-      "alwaysOutputData": true,
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "oYP1Bc15GY7emvD3",
-          "name": "Google Sheets account"
-        }
-      }
+      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -635,13 +611,7 @@
         740
       ],
       "id": "0c6efb69-c1c2-47cd-a81e-6d6489796456",
-      "name": "Insert Top Ranking Keywords",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "oYP1Bc15GY7emvD3",
-          "name": "Google Sheets account"
-        }
-      }
+      "name": "Insert Top Ranking Keywords"
     },
     {
       "parameters": {
@@ -667,13 +637,7 @@
       ],
       "id": "9d071923-bc79-45f8-967e-5f610bb8aa12",
       "name": "Get Top Ranking Keywords Date",
-      "alwaysOutputData": true,
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "oYP1Bc15GY7emvD3",
-          "name": "Google Sheets account"
-        }
-      }
+      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -708,13 +672,7 @@
       ],
       "id": "a425bbf8-2dc2-4c5a-a870-423b1e4b6266",
       "name": "Get Keyword Opportunities",
-      "alwaysOutputData": true,
-      "credentials": {
-        "googleBigQueryOAuth2Api": {
-          "id": "9x33JaSI9N1JQ0NB",
-          "name": "Google BigQuery account"
-        }
-      }
+      "alwaysOutputData": true
     },
     {
       "parameters": {

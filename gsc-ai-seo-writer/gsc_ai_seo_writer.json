@@ -1,5 +1,5 @@
 {
-  "name": "Data-driven SEO Optimization copy",
+  "name": "Data-driven SEO Optimization",
   "nodes": [
     {
       "parameters": {
@@ -17,13 +17,12 @@
       "type": "n8n-nodes-base.formTrigger",
       "typeVersion": 2.2,
       "position": [
-        -480,
+        -500,
         280
       ],
-      "id": "2d819bb9-8bb2-49e2-a7f8-8606d60e6141",
+      "id": "ba0f4b1f-40be-4c8b-86a8-b880960224d4",
       "name": "On form submission",
-      "webhookId": "3810fe2f-7f58-4bb2-903d-ab9dbac65a3a",
-      "disabled": true
+      "webhookId": "c0791596-ada8-407c-9669-f54396d88940"
     },
     {
       "parameters": {
@@ -48,26 +47,20 @@
         -280,
         60
       ],
-      "id": "790add96-6435-49a8-baaa-b9ae6ee52567",
-      "name": "get_article_content",
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "MKoLytfiKC3rb7GP",
-          "name": "crawl4ai"
-        }
-      }
+      "id": "1b6e074c-b5f3-4fd2-a6c0-b0d2d1f9275d",
+      "name": "get_article_content"
     },
     {
       "parameters": {},
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        -60,
+        -80,
         60
       ],
-      "id": "5721586e-b4c2-43e6-b07f-56cb7eac4211",
+      "id": "435d5eb7-f2a2-4b2e-ad27-712e7fd304b7",
       "name": "5_sec",
-      "webhookId": "2f33e22e-d230-4baf-bc7b-cc9e8c125870"
+      "webhookId": "ac0bb2e9-a1f8-47df-823b-074a0e825f6c"
     },
     {
       "parameters": {
@@ -79,17 +72,11 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        100,
+        60,
         60
       ],
-      "id": "5101fb65-29f6-494f-927a-883138af071b",
-      "name": "get_status",
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "MKoLytfiKC3rb7GP",
-          "name": "crawl4ai"
-        }
-      }
+      "id": "5f582f3d-616d-433b-9b62-d1c646dea679",
+      "name": "get_status"
     },
     {
       "parameters": {
@@ -119,10 +106,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        260,
+        200,
         60
       ],
-      "id": "3e194e40-90b0-4f64-b6bb-b616ac129c62",
+      "id": "5326213d-ffd6-4048-81d2-1c1dd44a3485",
       "name": "is_completed"
     },
     {
@@ -134,10 +121,10 @@
       "type": "n8n-nodes-base.markdown",
       "typeVersion": 1,
       "position": [
-        680,
-        -40
+        540,
+        -20
       ],
-      "id": "0cc58f61-f746-465e-bc25-060bf1efca23",
+      "id": "9a5897bb-30f6-4e7c-90e2-4b8995a22aeb",
       "name": "Markdown"
     },
     {
@@ -175,10 +162,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        440,
-        -40
+        360,
+        -20
       ],
-      "id": "a4f6203e-fe69-4aed-9981-398b447c02da",
+      "id": "3fc6b9e7-755e-4f0a-bef5-54e3f4f62f21",
       "name": "Edit Fields"
     },
     {
@@ -196,17 +183,11 @@
       "typeVersion": 3,
       "position": [
         -280,
-        480
+        500
       ],
-      "id": "a3afca6e-666d-4a24-8a16-54165c065394",
+      "id": "2bd3d92a-6035-4f9e-b491-5ca18643d93c",
       "name": "Google Drive",
-      "alwaysOutputData": true,
-      "credentials": {
-        "googleDriveOAuth2Api": {
-          "id": "ab7Q5B8rYtMOAzfw",
-          "name": "Google Drive account"
-        }
-      }
+      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -237,9 +218,9 @@
       "typeVersion": 2.2,
       "position": [
         -100,
-        480
+        500
       ],
-      "id": "7f7f0952-a7e6-4d53-9f71-8b91b358ef7a",
+      "id": "38e4200b-6e9d-4f4b-b2be-c0156ffc5a54",
       "name": "if_sheet_exists"
     },
     {
@@ -251,18 +232,12 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        160,
+        60,
         580
       ],
-      "id": "ed669431-111b-490f-97a0-46f8eb1d243f",
+      "id": "10ab4494-e56d-4854-9557-63702aa92edd",
       "name": "create_new_spreadsheet",
-      "alwaysOutputData": true,
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "oYP1Bc15GY7emvD3",
-          "name": "Google Sheets account"
-        }
-      }
+      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -273,23 +248,17 @@
           "cachedResultName": "automations",
           "cachedResultUrl": "https://console.cloud.google.com/bigquery?project=automations-451008"
         },
-        "sqlQuery": "DECLARE target_url STRING DEFAULT '{{ $('On form submission').item.json.Link }}';\nDECLARE current_period_start DATE DEFAULT DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY);\nDECLARE previous_period_start DATE DEFAULT DATE_SUB(current_period_start, INTERVAL 30 DAY);\n\nWITH \n-- Current period query performance (last 30 days)\ncurrent_period AS (\n  SELECT\n    query,\n    SUM(clicks) AS current_clicks,\n    SUM(impressions) AS current_impressions,\n    SAFE_DIVIDE(SUM(clicks), SUM(impressions)) AS current_ctr,\n    SAFE_DIVIDE(SUM(sum_position), SUM(impressions)) AS current_avg_position\n  FROM `add_your_table_here`\n  WHERE \n    url = target_url\n    AND data_date >= current_period_start\n    AND data_date < CURRENT_DATE()\n    AND is_anonymized_query = False\n  GROUP BY query\n),\n\n-- Previous period query performance (30-60 days ago)\nprevious_period AS (\n  SELECT\n    query,\n    SUM(clicks) AS previous_clicks,\n    SUM(impressions) AS previous_impressions,\n    SAFE_DIVIDE(SUM(clicks), SUM(impressions)) AS previous_ctr,\n    SAFE_DIVIDE(SUM(sum_position), SUM(impressions)) AS previous_avg_position\n  FROM `add_your_table_here`\n  WHERE \n    url = target_url\n    AND data_date >= previous_period_start\n    AND data_date < current_period_start\n    AND is_anonymized_query = False\n  GROUP BY query\n),\n\n-- Combined data with differences\ncombined_data AS (\n  SELECT\n    COALESCE(c.query, p.query) AS query,\n    \n    -- Current period metrics\n    IFNULL(c.current_clicks, 0) AS current_clicks,\n    IFNULL(p.previous_clicks, 0) AS previous_clicks,\n    \n    IFNULL(c.current_impressions, 0) AS current_impressions,\n    IFNULL(p.previous_impressions, 0) AS previous_impressions,\n    \n    IFNULL(c.current_ctr, 0) AS current_ctr,\n    IFNULL(p.previous_ctr, 0) AS previous_ctr,\n    \n    IFNULL(c.current_avg_position, 0) AS current_avg_position,\n    IFNULL(p.previous_avg_position, 0) AS previous_avg_position,\n    \n    -- Absolute differences\n    IFNULL(c.current_clicks, 0) - IFNULL(p.previous_clicks, 0) AS clicks_diff,\n    IFNULL(c.current_impressions, 0) - IFNULL(p.previous_impressions, 0) AS impressions_diff,\n    IFNULL(c.current_ctr, 0) - IFNULL(p.previous_ctr, 0) AS ctr_diff,\n    IFNULL(p.previous_avg_position, 0) - IFNULL(c.current_avg_position, 0) AS position_diff,\n    \n    -- Percentage differences\n    CASE \n      WHEN IFNULL(p.previous_clicks, 0) = 0 AND IFNULL(c.current_clicks, 0) > 0 THEN 100\n      WHEN IFNULL(p.previous_clicks, 0) = 0 THEN 0\n      ELSE ROUND((IFNULL(c.current_clicks, 0) - IFNULL(p.previous_clicks, 0)) / IFNULL(p.previous_clicks, 0) * 100, 2)\n    END AS clicks_diff_pct,\n    \n    CASE \n      WHEN IFNULL(p.previous_impressions, 0) = 0 AND IFNULL(c.current_impressions, 0) > 0 THEN 100\n      WHEN IFNULL(p.previous_impressions, 0) = 0 THEN 0\n      ELSE ROUND((IFNULL(c.current_impressions, 0) - IFNULL(p.previous_impressions, 0)) / IFNULL(p.previous_impressions, 0) * 100, 2)\n    END AS impressions_diff_pct,\n    \n    CASE \n      WHEN IFNULL(p.previous_ctr, 0) = 0 AND IFNULL(c.current_ctr, 0) > 0 THEN 100\n      WHEN IFNULL(p.previous_ctr, 0) = 0 THEN 0\n      ELSE ROUND((IFNULL(c.current_ctr, 0) - IFNULL(p.previous_ctr, 0)) / IFNULL(p.previous_ctr, 0) * 100, 2)\n    END AS ctr_diff_pct\n  FROM current_period c\n  FULL OUTER JOIN previous_period p ON c.query = p.query\n)\n\n-- Main query with categorization\nSELECT\n  query,\n  \n  -- Paired metrics (current next to previous)\n  current_clicks,\n  previous_clicks,\n  clicks_diff,\n  clicks_diff_pct,\n  \n  current_impressions,\n  previous_impressions,\n  impressions_diff,\n  impressions_diff_pct,\n  \n  current_ctr,\n  previous_ctr,\n  ctr_diff,\n  ctr_diff_pct,\n  \n  current_avg_position,\n  previous_avg_position,\n  position_diff,\n  \n  -- Categorization\n  CASE\n    WHEN clicks_diff > 0 THEN 'Gaining'\n    WHEN clicks_diff < 0 THEN 'Declining'\n    ELSE 'Stable'\n  END AS trend_category\n\nFROM combined_data\nWHERE \n  -- Filter to include only keywords with meaningful data\n  (current_clicks > 0 OR previous_clicks > 0 OR current_impressions > 10 OR previous_impressions > 10)\nORDER BY \n  -- Default ordering by absolute click difference (biggest gains/losses first)\n  ABS(clicks_diff) DESC,\n  current_impressions DESC",
+        "sqlQuery": "DECLARE target_url STRING DEFAULT '{{ $('On form submission').item.json.Link }}';\nDECLARE current_period_start DATE DEFAULT DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY);\nDECLARE previous_period_start DATE DEFAULT DATE_SUB(current_period_start, INTERVAL 30 DAY);\n\nWITH \n-- Current period query performance (last 30 days)\ncurrent_period AS (\n  SELECT\n    query,\n    SUM(clicks) AS current_clicks,\n    SUM(impressions) AS current_impressions,\n    SAFE_DIVIDE(SUM(clicks), SUM(impressions)) AS current_ctr,\n    SAFE_DIVIDE(SUM(sum_position), SUM(impressions)) AS current_avg_position\n  FROM `automations-451008.searchconsole_hban.searchdata_url_impression`\n  WHERE \n    url = target_url\n    AND data_date >= current_period_start\n    AND data_date < CURRENT_DATE()\n    AND is_anonymized_query = False\n  GROUP BY query\n),\n\n-- Previous period query performance (30-60 days ago)\nprevious_period AS (\n  SELECT\n    query,\n    SUM(clicks) AS previous_clicks,\n    SUM(impressions) AS previous_impressions,\n    SAFE_DIVIDE(SUM(clicks), SUM(impressions)) AS previous_ctr,\n    SAFE_DIVIDE(SUM(sum_position), SUM(impressions)) AS previous_avg_position\n  FROM `automations-451008.searchconsole_hban.searchdata_url_impression`\n  WHERE \n    url = target_url\n    AND data_date >= previous_period_start\n    AND data_date < current_period_start\n    AND is_anonymized_query = False\n  GROUP BY query\n),\n\n-- Combined data with differences\ncombined_data AS (\n  SELECT\n    COALESCE(c.query, p.query) AS query,\n    \n    -- Current period metrics\n    IFNULL(c.current_clicks, 0) AS current_clicks,\n    IFNULL(p.previous_clicks, 0) AS previous_clicks,\n    \n    IFNULL(c.current_impressions, 0) AS current_impressions,\n    IFNULL(p.previous_impressions, 0) AS previous_impressions,\n    \n    IFNULL(c.current_ctr, 0) AS current_ctr,\n    IFNULL(p.previous_ctr, 0) AS previous_ctr,\n    \n    IFNULL(c.current_avg_position, 0) AS current_avg_position,\n    IFNULL(p.previous_avg_position, 0) AS previous_avg_position,\n    \n    -- Absolute differences\n    IFNULL(c.current_clicks, 0) - IFNULL(p.previous_clicks, 0) AS clicks_diff,\n    IFNULL(c.current_impressions, 0) - IFNULL(p.previous_impressions, 0) AS impressions_diff,\n    IFNULL(c.current_ctr, 0) - IFNULL(p.previous_ctr, 0) AS ctr_diff,\n    IFNULL(p.previous_avg_position, 0) - IFNULL(c.current_avg_position, 0) AS position_diff,\n    \n    -- Percentage differences\n    CASE \n      WHEN IFNULL(p.previous_clicks, 0) = 0 AND IFNULL(c.current_clicks, 0) > 0 THEN 100\n      WHEN IFNULL(p.previous_clicks, 0) = 0 THEN 0\n      ELSE ROUND((IFNULL(c.current_clicks, 0) - IFNULL(p.previous_clicks, 0)) / IFNULL(p.previous_clicks, 0) * 100, 2)\n    END AS clicks_diff_pct,\n    \n    CASE \n      WHEN IFNULL(p.previous_impressions, 0) = 0 AND IFNULL(c.current_impressions, 0) > 0 THEN 100\n      WHEN IFNULL(p.previous_impressions, 0) = 0 THEN 0\n      ELSE ROUND((IFNULL(c.current_impressions, 0) - IFNULL(p.previous_impressions, 0)) / IFNULL(p.previous_impressions, 0) * 100, 2)\n    END AS impressions_diff_pct,\n    \n    CASE \n      WHEN IFNULL(p.previous_ctr, 0) = 0 AND IFNULL(c.current_ctr, 0) > 0 THEN 100\n      WHEN IFNULL(p.previous_ctr, 0) = 0 THEN 0\n      ELSE ROUND((IFNULL(c.current_ctr, 0) - IFNULL(p.previous_ctr, 0)) / IFNULL(p.previous_ctr, 0) * 100, 2)\n    END AS ctr_diff_pct\n  FROM current_period c\n  FULL OUTER JOIN previous_period p ON c.query = p.query\n)\n\n-- Main query with categorization\nSELECT\n  query,\n  \n  -- Paired metrics (current next to previous)\n  current_clicks,\n  previous_clicks,\n  clicks_diff,\n  clicks_diff_pct,\n  \n  current_impressions,\n  previous_impressions,\n  impressions_diff,\n  impressions_diff_pct,\n  \n  current_ctr,\n  previous_ctr,\n  ctr_diff,\n  ctr_diff_pct,\n  \n  current_avg_position,\n  previous_avg_position,\n  position_diff,\n  \n  -- Categorization\n  CASE\n    WHEN clicks_diff > 0 THEN 'Gaining'\n    WHEN clicks_diff < 0 THEN 'Declining'\n    ELSE 'Stable'\n  END AS trend_category\n\nFROM combined_data\nWHERE \n  -- Filter to include only keywords with meaningful data\n  (current_clicks > 0 OR previous_clicks > 0 OR current_impressions > 10 OR previous_impressions > 10)\nORDER BY \n  -- Default ordering by absolute click difference (biggest gains/losses first)\n  ABS(clicks_diff) DESC,\n  current_impressions DESC",
         "options": {}
       },
       "type": "n8n-nodes-base.googleBigQuery",
       "typeVersion": 2.1,
       "position": [
-        740,
-        480
+        540,
+        500
       ],
-      "id": "687f3aa7-a6a7-4609-a1d6-11ccb3cb1a40",
-      "name": "get_article_performance",
-      "credentials": {
-        "googleBigQueryOAuth2Api": {
-          "id": "9x33JaSI9N1JQ0NB",
-          "name": "Google BigQuery account"
-        }
-      }
+      "id": "d8864e24-c4b0-4848-8abd-6fddac21bf8f",
+      "name": "get_article_performance"
     },
     {
       "parameters": {
@@ -305,18 +274,12 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        160,
-        380
+        60,
+        420
       ],
-      "id": "2e22973d-df1f-41a6-888d-06bd20dcb9e7",
+      "id": "ef356758-0b7f-4984-a11f-44a39ec86fc7",
       "name": "add_sheet_0",
-      "alwaysOutputData": true,
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "oYP1Bc15GY7emvD3",
-          "name": "Google Sheets account"
-        }
-      }
+      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -332,28 +295,22 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        340,
+        240,
         580
       ],
-      "id": "7dcb258e-99c1-4991-958c-a30e493eefef",
+      "id": "46a01b97-6576-4c7d-8198-d21a5cedbcd7",
       "name": "add_sheet_1",
-      "alwaysOutputData": true,
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "oYP1Bc15GY7emvD3",
-          "name": "Google Sheets account"
-        }
-      }
+      "alwaysOutputData": true
     },
     {
       "parameters": {},
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        540,
-        480
+        400,
+        500
       ],
-      "id": "f7e1c298-4dc5-4d76-836f-1b0016e41448",
+      "id": "18066faf-8a89-4ed7-b612-b9fe6a3b85a7",
       "name": "Merge",
       "alwaysOutputData": true
     },
@@ -554,27 +511,21 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        920,
-        480
+        700,
+        500
       ],
-      "id": "c1fd034a-a10a-45f2-9b03-cdddf3a0a384",
-      "name": "insert_performance",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "oYP1Bc15GY7emvD3",
-          "name": "Google Sheets account"
-        }
-      }
+      "id": "17a2c863-c55f-458a-8a7c-ffc016c7acf6",
+      "name": "insert_performance"
     },
     {
       "parameters": {},
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        1180,
-        80
+        900,
+        60
       ],
-      "id": "68eb7d13-932a-4dab-91d2-a2cdd4179936",
+      "id": "3a5d7bf9-8fb4-4d1c-8770-c39f57afd39c",
       "name": "Merge1",
       "executeOnce": false
     },
@@ -587,10 +538,10 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        900,
+        720,
         160
       ],
-      "id": "b8ce5c2e-1844-423c-9e66-cfd27116c641",
+      "id": "0716f221-9819-4533-98fe-34bec5e9ac83",
       "name": "set_key"
     },
     {
@@ -617,18 +568,12 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.8,
       "position": [
-        1340,
-        80
+        1140,
+        60
       ],
-      "id": "d0ded166-215e-4cbf-989a-9860959410e5",
+      "id": "4a96ce2e-ca8b-4bb3-b252-3c0c1ddb5fab",
       "name": "create_report",
-      "executeOnce": true,
-      "credentials": {
-        "openAiApi": {
-          "id": "RAj3VxCHt0rIwBTk",
-          "name": "OpenAI"
-        }
-      }
+      "executeOnce": true
     },
     {
       "parameters": {
@@ -665,10 +610,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        900,
-        -40
+        720,
+        -20
       ],
-      "id": "eb90ac80-42f9-49f9-984e-73f65f0816f6",
+      "id": "a46ffc94-4651-4481-89e6-ed073735a41f",
       "name": "Edit Fields1"
     },
     {
@@ -688,10 +633,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1680,
-        80
+        1460,
+        60
       ],
-      "id": "de963c1f-4e3f-41c5-9e59-3fc3bac2f540",
+      "id": "878b56fc-b988-412a-90eb-0b2d87b3c1d5",
       "name": "get_clean_html",
       "notes": ".replace('html', '').replaceAll(\"```\", '').replaceAll(\"\\n\", \"\") "
     },
@@ -707,10 +652,10 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        2100,
-        80
+        1780,
+        60
       ],
-      "id": "a2cbe843-2dfd-4240-ab19-79ae0cd265a8",
+      "id": "203ca372-670e-4db6-a2f6-99f01c5a4841",
       "name": "convert_to_html_file"
     },
     {
@@ -720,56 +665,11 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1880,
-        80
+        1620,
+        60
       ],
-      "id": "a72395bf-5325-4b0b-8469-4841dbf315e5",
+      "id": "74ba8692-7d3d-4f32-bb74-c075b6a58d83",
       "name": "convert_to_base64"
-    },
-    {
-      "parameters": {
-        "content": "# Generate and save performance report",
-        "height": 420,
-        "width": 1420
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -340,
-        340
-      ],
-      "id": "1c37a057-aedd-472d-83ef-a350272ccb8b",
-      "name": "Sticky Note"
-    },
-    {
-      "parameters": {
-        "content": "# Crawl article",
-        "height": 420,
-        "width": 1420
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -340,
-        -100
-      ],
-      "id": "5e5b1533-de2e-400d-92d9-ddd67466597f",
-      "name": "Sticky Note1"
-    },
-    {
-      "parameters": {
-        "content": "# Generate Report with data-driven SEO suggestions",
-        "height": 420,
-        "width": 1420
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        1100,
-        -100
-      ],
-      "id": "37724a83-929d-4172-92ad-af1145393aa9",
-      "name": "Sticky Note2"
     },
     {
       "parameters": {
@@ -790,17 +690,56 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        2280,
-        80
+        1940,
+        60
       ],
-      "id": "ee847e64-d322-4065-9ef7-b8b562cbc4ed",
-      "name": "save_report",
-      "credentials": {
-        "googleDriveOAuth2Api": {
-          "id": "ab7Q5B8rYtMOAzfw",
-          "name": "Google Drive account"
-        }
-      }
+      "id": "ede28035-8a35-40a6-89df-ffa196470765",
+      "name": "save_report"
+    },
+    {
+      "parameters": {
+        "content": "# Crawl Article",
+        "height": 420,
+        "width": 1420
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -340,
+        -100
+      ],
+      "id": "9b518a2a-5b18-4cbb-8afd-0de2fc17a4a0",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "# Generate Optimized Report",
+        "height": 420,
+        "width": 1040
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        -100
+      ],
+      "id": "caffcc7c-7af1-49ee-b513-1840a6a7ba73",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "# Generate and Save Performance Report",
+        "height": 420,
+        "width": 2480
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -340,
+        340
+      ],
+      "id": "bb48be15-d76d-4e75-ad17-54ad27cfaf87",
+      "name": "Sticky Note"
     }
   ],
   "pinData": {},
@@ -1065,12 +1004,12 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "996e0454-5929-4cee-906f-a0c9c364677d",
+  "versionId": "35ba3601-2edb-4bfd-8f0a-c41298ab9d21",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
   },
-  "id": "a6SJ7voBtIBXOR8o",
+  "id": "cO3xILd89yLoQPGu",
   "tags": [
     {
       "createdAt": "2025-03-02T12:05:53.836Z",
