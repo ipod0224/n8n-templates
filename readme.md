@@ -20,7 +20,7 @@ Track unlimited keywords for unlimited websites without the cost of expensive SE
 - Unlimited keywords and websites
 - Low-hanging fruit identification
 - Google Sheets or PostgreSQL integration
-- [Learn More](./keyword-rank-tracker/README.md)
+- [Learn More](./keyword-rank-tracker/readme.md)
 
 
 ### 2. SERP Analysis Automation
@@ -29,7 +29,7 @@ Save 30+ minutes per article with automated SERP analysis and competitor researc
 - Mobile and desktop SERP data
 - Content crawling and analysis
 - Automated reporting
-- [Learn More](./serp-analysis/README.md)
+- [Learn More](./serp-analysis/readme.md)
 
 ### 3. Content Optimization Automation
 Streamline content optimization with data-driven suggestions and automated analysis.
@@ -37,4 +37,4 @@ Streamline content optimization with data-driven suggestions and automated analy
 - Keyword optimization
 - Content rewriting suggestions
 - Historical performance tracking
-- [Learn More](./gsc-ai-seo-writer/README.md)
+- [Learn More](./gsc-ai-seo-writer/readme.md)
