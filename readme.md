@@ -41,7 +41,7 @@ Streamline content optimization with data-driven suggestions and automated analy
 - Historical performance tracking
 - [Learn More](./gsc-ai-seo-writer/readme.md)
 
-### 3. Google Search Data Connection
+### 4. Google Search Data Connection
 Template that includes three nodes that are pre-filled for fetching data like
 - Overall clicks, queries, ctr and position by an url
 - Daily performance of your queries
