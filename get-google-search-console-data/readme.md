@@ -7,6 +7,10 @@ This **n8n template** uses HTTP nodes and the **Google Search Console API** to f
 - Daily performance
 - URL inspection data like canonical url, indexed status, last date crawled
 
+## Tutorial
+
+If you have never worked with the Google Search Console API, then I would recommend to watch my tutorial on YouTube. You will learn how to create the credential, where to find the client_id, client_secret as well as the right scopes and more. You can find the tutorial [here](https://youtu.be/UPG87Wxzaf8).
+
 ## Why Is This Template Useful?
 
 If you've used my other templates, you may have noticed that I primarily use **BigQuery** for analyzing the performance of my websites. However, there are some disadvantages:
