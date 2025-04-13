@@ -14,9 +14,30 @@ Stay updated with the latest tutorials and automation tips by subscribing to my 
 
 I recently launched my newsletter, which will primarily focus on automation, SEO, useful AI tools that I use daily, and helpful free templates. Feel free to sign up [here](https://marvomatic.com/newsletter/).
 
-## Available Templates
+##  Templates for Purchase
 
-### 1. Free Rank Tracker
+In addition to my free templates, I'm developing premium automation solutions designed to eliminate time-consuming tasks and reduce dependency on expensive third-party tools. 
+
+###  How to Purchase Templates
+
+A shop will be introduced later. For now, feel free to contact me at [hello@marvomatic.com](mailto:hello@marvomatic.com). 
+
+### 1. Keyword Performance Report Generator
+
+Automatically analyze your SEO performance with interactive reports delivered straight to your inbox.
+
+#### Key Features
+- **Unlimited Tracking**: Monitor keywords across multiple countries without limitations
+- **Performance Analysis**: Identify improved, stable, and declining keywords at a glance
+- **Comprehensive Tables**: Analyze keyword data in detailed, sortable table views
+- **Interactive Visualizations**: Track daily keyword performance through dynamic line charts
+
+> [View Demo Report](./tracked-keyword-performance-report-generator/n8n-keyword-rank-tracking-example-report.html) | [Learn More](./tracked-keyword-performance-report-generator/readme.md)
+
+
+## Free Templates
+
+### 1. Rank Tracker
 Track unlimited keywords for unlimited websites without the cost of expensive SEO tools.
 - Automated rank tracking
 - Unlimited keywords and websites
