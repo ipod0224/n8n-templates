@@ -20,7 +20,7 @@ In addition to my free templates, I'm developing premium automation solutions de
 
 ###  How to Purchase Templates
 
-A shop will be introduced later. For now, feel free to contact me at [hello@marvomatic.com](mailto:hello@marvomatic.com). 
+You can find all my products [here](https://marvomatic.com/products/). My shop includes free templates as well as premium templates. In case you have any question, feel free to contact me at [hello@marvomatic.com](mailto:hello@marvomatic.com). 
 
 ### 1. Keyword Performance Report Generator
 
