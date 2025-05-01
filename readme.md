@@ -1,6 +1,6 @@
 # n8n Automation Templates
 
-A collection of free n8n templates to automate SEO, content optimization and other real-world challenges.
+A collection of free n8n templates to automate SEO, content optimization, data analysis and other real-world challenges.
 
 ## Overview
 
@@ -32,7 +32,20 @@ Automatically analyze your SEO performance with interactive reports delivered st
 - **Comprehensive Tables**: Analyze keyword data in detailed, sortable table views
 - **Interactive Visualizations**: Track daily keyword performance through dynamic line charts
 
-> [View Demo Report](./tracked-keyword-performance-report-generator/n8n-keyword-rank-tracking-example-report.html) | [Learn More](./tracked-keyword-performance-report-generator/readme.md)
+> [View Demo Report](./tracked-keyword-performance-report-generator/n8n-keyword-rank-tracking-example-report.html) | [View Product]([./tracked-keyword-performance-report-generator/readme.md](https://marvomatic.com/products/n8n-keyword-rank-tracking-report-automation/))
+
+### 2. Website Performance Analysis Workflow
+
+Instantly uncover your website’s top-performing pages and keywords with automated, actionable SEO insights—no technical skills required.
+
+#### Key Features
+- **Direct Integrations**: Connects with Google Search Console and BigQuery for first-party, large-scale data analysis
+- **Automatic Categorization**: Instantly see which pages and keywords are Declining, Stable, Growing, or experiencing Strong Growth
+- **Period-over-Period Analysis**: Effortlessly compare performance across different time frames to spot trends and opportunities
+- **Google Sheets Export**: All results are saved to a Google Spreadsheet for easy review and collaboration
+- **Low Costs**: Leverages free tiers of Google Search Console API and BigQuery
+
+> [Learn More](./traffic-performance-analysis/readme.md) | [View Product]([./tracked-keyword-performance-report-generator/readme.md](https://marvomatic.com/products/n8n-website-performance-analysis-workflow/))
 
 
 ## Free Templates
@@ -51,7 +64,9 @@ Save 30+ minutes per article with automated SERP analysis and competitor researc
 - Focus keyword analysis
 - Mobile and desktop SERP data
 - Content crawling and analysis
+- Fetches FAQs and related searches
 - Automated reporting
+- Uses Serper / SerpAPI / Crawl4AI / Firecrawl
 - [Learn More](./serp-analysis/readme.md)
 
 ### 3. Content Optimization Automation
