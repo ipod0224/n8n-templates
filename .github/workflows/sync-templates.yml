@@ -1,0 +1,192 @@
+name: 同步上游 n8n 範本
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 檢出主分支
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 配置 Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: 確保開發分支存在
+        run: |
+          if ! git show-ref --verify --quiet refs/remotes/origin/dev; then
+            echo "dev 分支不存在，從 main 創建"
+            git checkout -b dev
+            git push -u origin dev
+          else
+            git checkout dev
+          fi
+
+      - name: 獲取上游倉庫
+        run: |
+          git remote add community https://github.com/n8n-io/community-workflows.git || true
+          git remote add marvomatic https://github.com/Marvomatic/n8n-templates.git || true
+          git fetch community
+          git fetch marvomatic
+
+      - name: 建立更新分支
+        run: |
+          UPDATE_BRANCH="sync-update-$(date +%Y%m%d-%H%M%S)"
+          git checkout -b $UPDATE_BRANCH
+          echo "UPDATE_BRANCH=$UPDATE_BRANCH" >> $GITHUB_ENV
+
+      - name: 同步 community 模板
+        run: |
+          mkdir -p workflows
+          echo "正在從 community 同步範本..."
+          CHANGES_MADE=false
+          
+          # 遍歷 community 倉庫的工作流文件
+          for file in $(git ls-tree -r --name-only community/main | grep -E 'workflows/.*\.json$'); do
+            fileName=$(basename "$file")
+            echo "處理範本: $fileName"
+            
+            if [ -f "workflows/$fileName" ]; then
+              echo "檢查文件是否有更新..."
+              
+              # 比較文件是否相同
+              if ! git diff --quiet community/main:$file workflows/$fileName; then
+                echo "發現更新，更新本地檔案"
+                git checkout community/main -- $file
+                CHANGES_MADE=true
+              else
+                echo "文件相同，無需更新"
+              fi
+            else
+              echo "新範本，複製到本地"
+              git checkout community/main -- $file
+              CHANGES_MADE=true
+            fi
+          done
+          
+          if [ "$CHANGES_MADE" = "true" ]; then
+            git add workflows/
+            git commit -m "feat: 同步 community-workflows 範本"
+          else
+            echo "無 community 範本需要更新"
+          fi
+
+      - name: 同步 marvomatic 模板
+        run: |
+          mkdir -p workflows
+          echo "正在從 marvomatic 同步範本..."
+          CHANGES_MADE=false
+          
+          # 遍歷 marvomatic 倉庫的工作流文件
+          for file in $(git ls-tree -r --name-only marvomatic/main | grep -E 'workflows/.*\.json$'); do
+            fileName=$(basename "$file")
+            echo "處理範本: $fileName"
+            
+            if [ -f "workflows/$fileName" ]; then
+              echo "檢查文件是否有更新..."
+              
+              # 比較文件是否相同
+              if ! git diff --quiet marvomatic/main:$file workflows/$fileName; then
+                echo "發現更新，更新本地檔案"
+                git checkout marvomatic/main -- $file
+                CHANGES_MADE=true
+              else
+                echo "文件相同，無需更新"
+              fi
+            else
+              echo "新範本，複製到本地"
+              git checkout marvomatic/main -- $file
+              CHANGES_MADE=true
+            fi
+          done
+          
+          if [ "$CHANGES_MADE" = "true" ]; then
+            git add workflows/
+            git commit -m "feat: 同步 marvomatic 範本" || echo "可能沒有新變更或發生衝突"
+          else
+            echo "無 marvomatic 範本需要更新"
+          fi
+
+      - name: 檢驗範本格式
+        run: |
+          echo "檢驗範本格式..."
+          INVALID_FILES=()
+          
+          for file in workflows/*.json; do
+            if [ -f "$file" ]; then
+              echo "驗證: $file"
+              if ! jq . "$file" > /dev/null 2>&1; then
+                echo "錯誤: $file 不是有效的 JSON"
+                INVALID_FILES+=("$file")
+              fi
+            fi
+          done
+          
+          if [ ${#INVALID_FILES[@]} -gt 0 ]; then
+            echo "發現 ${#INVALID_FILES[@]} 個無效的 JSON 文件:"
+            printf "  - %s\n" "${INVALID_FILES[@]}"
+            exit 1
+          fi
+          
+          echo "所有文件格式有效"
+
+      - name: 推送更新分支
+        run: |
+          if git diff --quiet origin/dev; then
+            echo "沒有新的更新需要推送"
+            exit 0
+          fi
+          
+          git push origin ${{ env.UPDATE_BRANCH }}
+
+      - name: 檢查是否有變更
+        id: changes
+        run: |
+          if git diff --quiet origin/dev; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 創建 PR 到開發分支
+        if: steps.changes.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ env.UPDATE_BRANCH }}
+          base: dev
+          title: '自動同步上游範本更新'
+          body: |
+            ## 自動同步更新
+
+            此 PR 由自動同步工作流生成，包含來自以下來源的最新範本更新：
+            
+            - community-workflows
+            - marvomatic/n8n-templates
+            
+            ### 更新時間
+            ${{ github.event.repository.updated_at || github.run_started_at }}
+            
+            ### 注意事項
+            - 請檢查並測試這些範本
+            - 確保它們在合併前通過所有驗證檢查
+            - 合併後若需部署，請考慮 Canary 測試
+          labels: |
+            automated
+            sync
+            范本更新
+          commit-message: 'chore: 自動同步上游範本'
+
+      - name: 發送通知
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          echo "已創建新的同步 PR，請檢查並審查更新。"
+          # 這裡可以添加發送郵件或其他通知的命令
