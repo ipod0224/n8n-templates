@@ -1,0 +1,29 @@
+name: Validate n8n Templates
+
+on:
+  push:
+    paths:
+      - 'workflows/*.json'
+  pull_request:
+    paths:
+      - 'workflows/*.json'
+
+jobs:
+  lint-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '23'
+          cache: 'npm'
+      - name: Install n8n-workflow-lint
+        run: npm install -g n8n-workflow-lint
+      - name: Lint all workflow JSON files
+        run: n8n-workflow-lint workflows/*.json
+      - name: Install validate.js dependencies
+        run: npm install
+      - name: Run custom JS validation
+        run: node validate.js workflows/*.json
