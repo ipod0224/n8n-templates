@@ -1,0 +1,110 @@
+{
+  "name": "GitHub to LINE Workflow-Stable",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "webhook",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [100, 300]
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value": "={ \"message\": \"來自 \" + $json.repository?.full_name + \" 的通知: \" + $json.commits[0].message }"
+      },
+      "name": "Format Message",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [300, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://api.line.me/v2/bot/message/push",
+        "method": "POST",
+        "authentication": "predefinedCredentialType",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer qCNGxaJaogcO0Cet9fSmUadV26mmw/hVrszXR0KVGv385AsopiL4ZECNf11t87PPwVk0N5J/yGujBr30t4kesNyTV41+9n8MT5jcZQxlbNugOx6Uzor64ZMO42OyoT/tqET/ws3kS9kst14vt/3HxgdB04t89/1O/w1cDnyilFU="
+            }
+          ]
+        },
+        "options": {},
+        "bodyParametersUi": {
+          "parameter": {
+            "to": "U82db3445f7afd08f0794edd9febc3d76",
+            "messages": [
+              {
+                "type": "text",
+                "text": "={{ $json.message }}"
+              }
+            ]
+          }
+        }
+      },
+      "name": "LINE API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"success\": true, \"message\": \"Notification sent\" }",
+        "options": {}
+      },
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [700, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Format Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Message": {
+      "main": [
+        [
+          {
+            "node": "LINE API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LINE API": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "staticData": null
+}

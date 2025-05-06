@@ -1,0 +1,60 @@
+{
+  "name": "Crawler JSON Parser",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [100, 300]
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value": "{ \"data\": { \"items\": [{ \"id\": 1, \"name\": \"測試項目\" }] } }"
+      },
+      "name": "JSON 資料",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [300, 300]
+    },
+    {
+      "parameters": {
+        "mode": "jsonToBinary",
+        "sourceKey": "data",
+        "options": {}
+      },
+      "name": "JSON 解析",
+      "type": "n8n-nodes-base.moveBinaryData",
+      "typeVersion": 1,
+      "position": [500, 300]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "JSON 資料",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JSON 資料": {
+      "main": [
+        [
+          {
+            "node": "JSON 解析",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "staticData": null
+}
